@@ -10,6 +10,9 @@ Features:
 - Interactive graphs
 - Diversity of alert dialogs 
 
+How to use:
+- download realize apk
+- Enjoy the app!
 
 Login screen:
 
