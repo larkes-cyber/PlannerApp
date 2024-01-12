@@ -41,18 +41,18 @@ class DataServiceRepository(
 
     override fun getCurrentMonthName(month: Int): String {
         when(month){
-            1 -> return "Январь"
-            2 -> return "Февраль"
-            3 -> return "Март"
-            4 -> return "Апрель"
-            5 -> return "Май"
-            6 -> return "Июнь"
-            7 -> return "Июль"
-            8 -> return "Август"
-            9 -> return "Сентябрь"
-            10 -> return "Октябрь"
-            11 -> return "Ноябрь"
-            12 -> return "Декабрь"
+            1 -> return "Января"
+            2 -> return "Февраля"
+            3 -> return "Марта"
+            4 -> return "Апреля"
+            5 -> return "Мая"
+            6 -> return "Июня"
+            7 -> return "Июля"
+            8 -> return "Августа"
+            9 -> return "Сентября"
+            10 -> return "Октября"
+            11 -> return "Ноября"
+            12 -> return "Декабря"
             else -> return "None"
 
         }

@@ -3,6 +3,7 @@ package com.example.mywaycompose.presentation.ui.screen.tasks_screen.views
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -41,7 +42,6 @@ fun NavDatesListView(
     }
 
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier.fillMaxWidth(),
         state = scrollState
     ){
@@ -64,6 +64,7 @@ fun NavDatesListView(
                             toSelect(item)
                         }
                     )
+                    .padding(start = 10.dp)
             )
         }
     }

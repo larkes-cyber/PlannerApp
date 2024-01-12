@@ -60,6 +60,7 @@ fun AddIdeaFormView(
                 text = task,
                 visibleStroke = false,
                 focus = true,
+                showCheckMark = true,
                 textHintTextStyle = TextStyle(
                     color = AppTheme.colors.primaryTitle,
                     fontWeight = FontWeight.Medium,

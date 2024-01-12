@@ -67,7 +67,6 @@ fun ThemeScreen(
         mutableStateOf(isLightTheme)
     }
 
-    val secondColor = AppTheme.colors.secondPrimaryBackground
 
     val transition = updateTransition(
         targetState = mode.value,
@@ -81,7 +80,7 @@ fun ThemeScreen(
         ) },
         label = "",
         targetValueByState = {isSelect ->
-            if(isSelect) 180.dp else 0.dp
+            if(isSelect) 100.dp else 0.dp
         }
     )
 
@@ -150,54 +149,41 @@ fun ThemeScreen(
 
             item{
                 Spacer(modifier = Modifier.height(30.dp))
-                Card(
+                Box(
                     modifier = Modifier
                         .width(200.dp)
-                        .height(40.dp),
-                    backgroundColor = AppTheme.colors.strongPrimaryBackground,
-                    shape = RoundedCornerShape(20.dp)
+                        .height(40.dp)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(AppTheme.colors.strongPrimaryBackground)
                 ) {
-                    Box(modifier = Modifier
-                        .fillMaxSize()
-                        .drawBehind {
-                            val path = Path().apply {
-                                addRoundRect(
-                                    RoundRect(
-                                        rect = Rect(
-                                            offset = Offset(shift.value, 0f),
-                                            size = Size(size.width / 1.8f, size.height),
-                                        ),
-                                        bottomRight = CornerRadius(50f, 50f),
-                                        topRight = CornerRadius(50f, 50f),
-                                        topLeft = CornerRadius(50f, 50f),
-                                        bottomLeft = CornerRadius(50f, 50f)
-                                    )
-                                )
-                            }
-                            drawPath(
-                                path,
-                                color = secondColor
-                            )
-                        }
+                    Box(
+                        modifier = Modifier.padding(start = shift)
                     ) {
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
+                        Box(
                             modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 20.dp)
-                        ) {
-                            SwitchText(text = "Светлая", selected = !mode.value){
-                                mode.value = false
-                                onThemeClick()
-                            }
-                            SwitchText(text = "Тёмная", selected = mode.value){
-                                mode.value = true
-                                onThemeClick()
-                            }
+                                .width(100.dp)
+                                .height(40.dp)
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(AppTheme.colors.secondPrimaryBackground)
+                                .align(Alignment.CenterEnd)
+                        )
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 20.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        SwitchText(text = "Светлая", selected = !mode.value){
+                            mode.value = false
+                            onThemeClick()
+                        }
+                        SwitchText(text = "Тёмная", selected = mode.value){
+                            mode.value = true
+                            onThemeClick()
                         }
                     }
-
                 }
             }
         }
@@ -251,3 +237,47 @@ fun SwitchText(text:String, selected:Boolean, callback:() -> Unit){
         }
     )
 }
+
+
+//Card(
+//modifier = Modifier
+//.width(200.dp)
+//.height(40.dp),
+//backgroundColor = AppTheme.colors.strongPrimaryBackground,
+//shape = RoundedCornerShape(20.dp)
+//) {
+//    Box(modifier = Modifier
+//        .fillMaxSize()
+//        .drawBehind {
+//            val path = Path().apply {
+//                addRoundRect(
+//                    RoundRect(
+//                        rect = Rect(
+//                            offset = Offset(shift.value, 0f),
+//                            size = Size(size.width / 1.8f, size.height),
+//                        ),
+//                        bottomRight = CornerRadius(50f, 50f),
+//                        topRight = CornerRadius(50f, 50f),
+//                        topLeft = CornerRadius(50f, 50f),
+//                        bottomLeft = CornerRadius(50f, 50f)
+//                    )
+//                )
+//            }
+//            drawPath(
+//                path,
+//                color = secondColor
+//            )
+//        }
+//    ) {
+//        Row(
+//            horizontalArrangement = Arrangement.SpaceBetween,
+//            verticalAlignment = Alignment.CenterVertically,
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .padding(horizontal = 20.dp)
+//        ) {
+
+//        }
+//    }
+//
+//}

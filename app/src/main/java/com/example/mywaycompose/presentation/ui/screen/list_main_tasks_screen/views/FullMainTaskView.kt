@@ -415,8 +415,8 @@ fun FullMainTaskView(
                                                 for (dependNodeId in i.dependIds) {
                                                     val dependNode =
                                                         visualGraph.find { it.id == dependNodeId }
-                                                    val endX = dependNode!!.xOffset
-                                                    val endY = dependNode.yOffset + 18.dp
+                                                    val endX = dependNode?.xOffset ?: 0.dp
+                                                    val endY = (dependNode?.yOffset ?: 0.dp) + 18.dp
                                                     drawBranch(
                                                         firstNodeOffset = Offset(
                                                             startNodeX.toPx(),

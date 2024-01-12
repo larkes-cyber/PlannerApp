@@ -9,6 +9,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarToday
+import androidx.compose.material.icons.rounded.CheckCircleOutline
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -215,8 +216,7 @@ fun EditTaskScreen(
                 onClick = {
                           viewModel.onDone()
             }, modifier = Modifier.size(50.dp)) {
-                Icon(painter = painterResource(
-                    id = R.drawable.plus_icon_cirlce),
+                Icon(imageVector = Icons.Rounded.CheckCircleOutline,
                     contentDescription = "",
                     modifier = Modifier.size(50.dp),
                     tint = AppTheme.colors.iconColor

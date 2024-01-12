@@ -194,7 +194,7 @@ class TasksViewModel @Inject constructor(
         _productTaskUIState.value = productTaskUIState.value.copy(activeTask = productTask)
     }
 
-    fun toEditTask(id:Int){
+    fun toEditTask(id:Int?){
         _editTask.value = id
     }
 

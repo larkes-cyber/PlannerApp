@@ -71,7 +71,10 @@ fun TasksScreen(
     }
 
     LaunchedEffect(editTask){
-        if(editTask != null) navController.navigate(Screen.EditTaskScreen.withArgs(editTask.toString()))
+        if(editTask != null) {
+            navController.navigate(Screen.EditTaskScreen.withArgs(editTask.toString()))
+            viewModel.toEditTask(null)
+        }
     }
 
 

@@ -50,102 +50,98 @@ fun ListMainTasksScreen(
         if(hasBeenSelected != null) navController.navigate(Screen.DetailMainTaskScreen.withArgs(hasBeenSelected.toString()))
     }
 
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(isRefreshing = refreshingUIState),
-        onRefresh = { viewModel.syncTasks() },
-        modifier = Modifier
-            .fillMaxWidth()
+
+
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .background(AppTheme.colors.primaryBackground)
+        .padding(horizontal = 16.dp)
+
     ) {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.primaryBackground)
-            .padding(horizontal = 16.dp)
-
-        ) {
-            if(subclassUIState.colorPickerAlertDialogActive) {
-                ColorPicker(
-                    onDismiss = {
-                        viewModel.onAddSubclassColorChange(0xffffffff)
-                    },
-                    onNegativeClick = {
-                        viewModel.onAddSubclassColorChange(0xffffffff)
-                    },
-                    onPositiveClick = {
-                        viewModel.onAddSubclassColorChange(it)
-                    }
-                )
-            }
-            if(subclassUIState.subclassAlertDialogActive) {
-                AddSubclassAlertDialog(
-                    subclass = subclassUIState.chosenSubclass!!,
-                    chosenColor = subclassUIState.chosenColor,
-                    onColorPickerClick = {
-                          viewModel.onAddSubclassColorClick()
-                    },
-                    onSubclassTitleChange = {
-                          viewModel.onSubclassTitleChange(it)
-                    },
-                    onSubmit = {
-                       viewModel.onSubclassDone()
-                    },
-                    onDismiss = {
-                        viewModel.resetSubclassUIState()
-                    }
-                )
-            }
-
-            MyWayTopAppBar(
-                title = GOALS_TITLE,
-                image = user!!.photoUrl!!,
-                showCalendarIcon = false,
-                showPlusIcon = false,
-                plusCallback = {
+        if(subclassUIState.colorPickerAlertDialogActive) {
+            ColorPicker(
+                onDismiss = {
+                    viewModel.onAddSubclassColorChange(0xffffffff)
                 },
-                profileIconCallback = {
-                    navController.navigate(Screen.ThemeScreen.route)
+                onNegativeClick = {
+                    viewModel.onAddSubclassColorChange(0xffffffff)
+                },
+                onPositiveClick = {
+                    viewModel.onAddSubclassColorChange(it)
                 }
             )
-            Spacer(modifier = Modifier.height(30.dp))
-            if(viewModelValue.isLoading){
-                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-                    CircularProgressIndicator()
+        }
+        if(subclassUIState.subclassAlertDialogActive) {
+            AddSubclassAlertDialog(
+                subclass = subclassUIState.chosenSubclass!!,
+                chosenColor = subclassUIState.chosenColor,
+                onColorPickerClick = {
+                      viewModel.onAddSubclassColorClick()
+                },
+                onSubclassTitleChange = {
+                      viewModel.onSubclassTitleChange(it)
+                },
+                onSubmit = {
+                   viewModel.onSubclassDone()
+                },
+                onDismiss = {
+                    viewModel.resetSubclassUIState()
                 }
+            )
+        }
+
+        MyWayTopAppBar(
+            title = GOALS_TITLE,
+            image = user!!.photoUrl!!,
+            showCalendarIcon = false,
+            showPlusIcon = false,
+            plusCallback = {
+            },
+            profileIconCallback = {
+                navController.navigate(Screen.ThemeScreen.route)
             }
-            if(viewModelValue.success.isNotEmpty()){
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    contentPadding = PaddingValues(bottom = 110.dp)
-                ){
-                    itemsIndexed(viewModelValue.success){index, item ->
-                        Column() {
-                            FullMainTaskView(
-                                mainTask = item,
-                                generateVsId = {viewModel.generateTaskId()},
-                                onDeleteNode = {
-                                    viewModel.deleteNode(it)
-                                },
-                                onPushNode = {
-                                    viewModel.onAddSubclassClick(
-                                        subclass = it.text,
-                                        vsTaskId = it.id!!
-                                    )
-                                },
-                                onSettingsClick = {
-                                    navController.navigate(Screen.EditMainTaskScreen.withArgs(item.id.toString(), "true"))
-                                }
-                            ){ visualTask ->
-                                viewModel.addNewVisualTask(visualTask)
+        )
+        Spacer(modifier = Modifier.height(30.dp))
+        if(viewModelValue.isLoading){
+            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                CircularProgressIndicator()
+            }
+        }
+        if(viewModelValue.success.isNotEmpty()){
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                contentPadding = PaddingValues(bottom = 110.dp)
+            ){
+                itemsIndexed(viewModelValue.success){index, item ->
+                    Column() {
+                        FullMainTaskView(
+                            mainTask = item,
+                            generateVsId = {viewModel.generateTaskId()},
+                            onDeleteNode = {
+                                viewModel.deleteNode(it)
+                            },
+                            onPushNode = {
+                                viewModel.onAddSubclassClick(
+                                    subclass = it.text,
+                                    vsTaskId = it.id!!
+                                )
+                            },
+                            onSettingsClick = {
+                                navController.navigate(Screen.EditMainTaskScreen.withArgs(item.id.toString(), "true"))
                             }
+                        ){ visualTask ->
+                            viewModel.addNewVisualTask(visualTask)
                         }
                     }
                 }
             }
-            if(viewModelValue.error.isNotEmpty()){
-                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-                    AnErrorView(error = viewModelValue.error, size = 14)
-                }
+        }
+        if(viewModelValue.error.isNotEmpty()){
+            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                AnErrorView(error = viewModelValue.error, size = 14)
             }
         }
     }
+
 }

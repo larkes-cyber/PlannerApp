@@ -121,6 +121,7 @@ fun IdeasPullScreen(
                                 AddIdeaFormView(
                                     task = ideaFieldUIState.idea,
                                     submitCallback = {
+                                        if(ideaFieldUIState.idea.isEmpty()) return@AddIdeaFormView
                                         viewModel.addIdea()
                                     },
                                     taskListener = {
